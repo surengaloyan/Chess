@@ -385,7 +385,7 @@ class King {
                 dangerPoses.push(...obj.getPoses());
             }
         }
-        let king = figuresObjArr.filter(el => { return el.symbol == sym })[0];
+        const king = figuresObjArr.filter(el => { return el.symbol == sym })[0];
         dangerPoses.push(...king.getKingPoses());
         poses.forEach(pos => {
             let thereIs = false;
