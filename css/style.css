@@ -868,6 +868,7 @@ nav .menu .poses.active .check_box
     overflow-wrap: break-word;
     position: relative;
     z-index: 13;
+    font-family: var(--figures-font);
 }
 .history_single_box .back_from_history_single
 {
