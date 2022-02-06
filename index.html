@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/start_logo.png" type="image/x-icon">
+    <title>Chess</title>
+</head>
+
+<body>
+    <!-- <h1>Black figures</h1>
+    <div>&#9818; &#9819; &#9820; &#9821; &#9822; &#9823;</div>
+    <h1>White figures</h1>
+    <div>&#9812;  &#9813; &#9814; &#9815; &#9816; &#9817;</div> -->
+
+    <!-- Audio files -->
+    <audio src="files/click_sound.mp3" class="click_sound"></audio>
+    <audio src="files/chess_music.mp3" class="chess_music" loop></audio>
+    <audio src="files/white_click_sound.mp3" class="white_click_sound"></audio>
+    <audio src="files/black_click_sound.mp3" class="black_click_sound"></audio>
+    <!-- ------------start page & timer----------------------------------------------------------------------------- -->
+    <div class="start_page">
+        <img src="img/start_logo.png">
+        <p>set timer to start</p>
+        <div class="timer_box">
+            <div class="m0" title="no timer"><i class="fas fa-ban"></i></div>
+            <div class="m3" title="3 minute timer">3m</div>
+            <div class="m5" title="5 minute timer">5m</div>
+            <div class="m7" title="7 minute timer">7m</div>
+            <div class="m10" title="10 minute timer">10m</div>
+            <div class="m20" title="20 minute timer">20m</div>
+            <div class="m30" title="30 minute timer">30m</div>
+        </div>
+        <p>Created by Suren Galoyan</p>
+    </div>
+
+    <!-- ------------end time box----------------------------------------------------------------------------- -->
+    <div class="end_of_time">
+        <div class="inner">
+            <i class="fas fa-crown win"></i>
+            <p>end of time</p>
+            <p>check winner:</p>
+            <div class="win_options">
+                <button class="fas fa-chess-king"></button>
+                <button class="fas fa-handshake"></button>
+                <button class="fas fa-chess-king"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------end game box----------------------------------------------------------------------------- -->
+    <div class="end_of_game">
+        <div class="inner">
+            <i class="fas fa-crown win"></i>
+            <p>the winner is:</p>
+            <p class="winner_name"></p>
+            <i class="fas fa-redo-alt restart"></i>
+        </div>
+    </div>
+    </div>
+
+    <!-- ------------navbar & win buttons------------------------------------------------------------------------ -->
+    <div class="main_btns">
+        <button class="menu_btn fas fa-bars"></button>
+        <div class="win_btns">
+            <button title="check winner" class="fas fa-crown win" id="win_select"></button>
+            <div class="win_options">
+                <button title="Winner is white player" class="fas fa-chess-king" id="white_winner"></button>
+                <button title="Winner is black player" class="fas fa-chess-king" id="black_winner"></button>
+                <button title="Nobody's" class="fas fa-handshake" id="nobodys"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------NAVBAR-------------------------------------------------------------------------------------- -->
+    <nav>
+        <i class="fas fa-redo-alt restart"></i>
+        <ul class="menu">
+            <li><button class="music">music <div class="check_box">
+                        <div class="check"></div>
+                    </div></button></li>
+            <li><button class="sounds">sounds<div class="check_box">
+                        <div class="check"></div>
+                    </div></button></li>
+            <li><button class="dark">dark<div class="check_box">
+                        <div class="check"></div>
+                    </div></button></li>
+            <li><button class="themes">themes<i class="fas fa-caret-right"></i></button></li>
+            <li><button class="figures">figures<i class="fas fa-caret-right"></i></button></li>
+            <hr>
+            <li><button class="names">names<i class="fas fa-caret-right"></i></button></li>
+            <li><button class="history">history<i class="fas fa-caret-right"></i></button></li>
+            <li><button class="poses active">poses<div class="check_box">
+                        <div class="check"></div>
+                    </div></button></li>
+            <li class="select">
+                <button class="languages">languages<i class="fas fa-sort-down"></i></button>
+                <div class="lang_options">
+                    <div class="hy">hy</div>
+                    <div class="ru">ru</div>
+                    <div class="eng active">eng</div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- ------------THEME check box--------------------------------------------------------------------------- -->
+    <div class="theme_box">
+        <div class="blue"></div>
+        <div class="red"></div>
+        <div class="yellow"></div>
+        <div class="green"></div>
+        <div class="purple"></div>
+        <div class="black"></div>
+        <div class="orange"></div>
+        <div class="brown"></div>
+        <div class="gray"></div>
+        <div class="rainbow"></div>
+    </div>
+
+    <!-- ------------FIGURE check box--------------------------------------------------------------------------- -->
+    <div class="figure_box">
+        <div class="sans_serif">&#9818;&#9812;</div>
+        <div class="free_serif">&#9818;&#9812;</div>
+        <div class="dejavu_sans">&#9818;&#9812;</div>
+        <div class="pecita">&#9818;&#9812;</div>
+        <div class="quivira">&#9818;&#9812;</div>
+    </div>
+
+    <!-- ------------NAME check box------------------------------------------------------------------------------ -->
+    <div class="name_box">
+        <i class="fas fa-arrow-left back_from_names"></i>
+        <div class="p1">
+            <div>&#9818;</div>
+            <div>White Player Name</div>
+            <input type="text" value="White Player" maxlength="10" id="player1_name_input">
+        </div>
+        <hr>
+        <div class="p2">
+            <div>&#9812;</div>
+            <div>Black Player Name</div>
+            <input type="text" value="Black Player" maxlength="10" id="player2_name_input">
+        </div>
+        <input type="submit" value="save" id="save_names">
+    </div>
+
+    <!-- ------------HISTORY check box--------------------------------------------------------------------------- -->
+    <div class="history_box">
+        <i class="fas fa-arrow-left back_from_history"></i>
+        <p>matches history</p>
+        <ul class="matches_list">
+        </ul>
+    </div>
+    <!-- ------------HISTORY single box-------------------------------------------------------------------------- -->
+    <div class="history_single_box">
+        
+    </div>
+
+    <!-- ------------POWN PROMOTION box-------------------------------------------------------------------------- -->
+    <div class="pown_promotion_box">
+        <div class="inner">
+            <p>Change figure to:</p>
+            <div class="promotion_figures">
+            </div>
+        </div>
+    </div>
+
+    <!-- ------------GAMING AREA--------------------------------------------------------------------------------- -->
+    <div class="gaming_area">
+        <h1>Chess</h1>
+        <div class="game">
+            <div class="numbers">
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>4</span>
+                <span>5</span>
+                <span>6</span>
+                <span>7</span>
+                <span>8</span>
+            </div>
+            <div class="letters">
+                <span>a</span>
+                <span>b</span>
+                <span>c</span>
+                <span>d</span>
+                <span>e</span>
+                <span>f</span>
+                <span>g</span>
+                <span>h</span>
+            </div>
+            <div class="black_eat_figures_area"></div>
+            <div class="p2_info">
+                <div class="p2name_area">Black Player</div>
+                <div class="black_timer">
+                    <span class="minutes">00</span>
+                    <span>:</span>
+                    <span class="seconds">00</span>
+                </div>
+            </div>
+            <div class="desk">
+                <div class="a8 white_board black_figure"><span>&#9820;</span></div>
+                <div class="b8 black_board black_figure"><span>&#9822;</span></div>
+                <div class="c8 white_board black_figure"><span>&#9821;</span></div>
+                <div class="d8 black_board black_figure"><span>&#9819;</span></div>
+                <div class="e8 white_board black_figure"><span>&#9818;</span></div>
+                <div class="f8 black_board black_figure"><span>&#9821;</span></div>
+                <div class="g8 white_board black_figure"><span>&#9822;</span></div>
+                <div class="h8 black_board black_figure"><span>&#9820;</span></div>
+
+                <div class="a7 black_board black_figure"><span>&#9823;</span></div>
+                <div class="b7 white_board black_figure"><span>&#9823;</span></div>
+                <div class="c7 black_board black_figure"><span>&#9823;</span></div>
+                <div class="d7 white_board black_figure"><span>&#9823;</span></div>
+                <div class="e7 black_board black_figure"><span>&#9823;</span></div>
+                <div class="f7 white_board black_figure"><span>&#9823;</span></div>
+                <div class="g7 black_board black_figure"><span>&#9823;</span></div>
+                <div class="h7 white_board black_figure"><span>&#9823;</span></div>
+
+                <div class="a6 white_board"><span></span></div>
+                <div class="b6 black_board"><span></span></div>
+                <div class="c6 white_board"><span></span></div>
+                <div class="d6 black_board"><span></span></div>
+                <div class="e6 white_board"><span></span></div>
+                <div class="f6 black_board"><span></span></div>
+                <div class="g6 white_board"><span></span></div>
+                <div class="h6 black_board"><span></span></div>
+
+                <div class="a5 black_board"><span></span></div>
+                <div class="b5 white_board"><span></span></div>
+                <div class="c5 black_board"><span></span></div>
+                <div class="d5 white_board"><span></span></div>
+                <div class="e5 black_board"><span></span></div>
+                <div class="f5 white_board"><span></span></div>
+                <div class="g5 black_board"><span></span></div>
+                <div class="h5 white_board"><span></span></div>
+
+                <div class="a4 white_board"><span></span></div>
+                <div class="b4 black_board"><span></span></div>
+                <div class="c4 white_board"><span></span></div>
+                <div class="d4 black_board"><span></span></div>
+                <div class="e4 white_board"><span></span></div>
+                <div class="f4 black_board"><span></span></div>
+                <div class="g4 white_board"><span></span></div>
+                <div class="h4 black_board"><span></span></div>
+
+                <div class="a3 black_board"><span></span></div>
+                <div class="b3 white_board"><span></span></div>
+                <div class="c3 black_board"><span></span></div>
+                <div class="d3 white_board"><span></span></div>
+                <div class="e3 black_board"><span></span></div>
+                <div class="f3 white_board"><span></span></div>
+                <div class="g3 black_board"><span></span></div>
+                <div class="h3 white_board"><span></span></div>
+
+                <div class="a2 white_board white_figure"><span>&#9817;</span></div>
+                <div class="b2 black_board white_figure"><span>&#9817;</span></div>
+                <div class="c2 white_board white_figure"><span>&#9817;</span></div>
+                <div class="d2 black_board white_figure"><span>&#9817;</span></div>
+                <div class="e2 white_board white_figure"><span>&#9817;</span></div>
+                <div class="f2 black_board white_figure"><span>&#9817;</span></div>
+                <div class="g2 white_board white_figure"><span>&#9817;</span></div>
+                <div class="h2 black_board white_figure"><span>&#9817;</span></div>
+
+                <div class="a1 black_board white_figure"><span>&#9814;</span></div>
+                <div class="b1 white_board white_figure"><span>&#9816;</span></div>
+                <div class="c1 black_board white_figure"><span>&#9815;</span></div>
+                <div class="d1 white_board white_figure"><span>&#9813;</span></div>
+                <div class="e1 black_board white_figure"><span>&#9812;</span></div>
+                <div class="f1 white_board white_figure"><span>&#9815;</span></div>
+                <div class="g1 black_board white_figure"><span>&#9816;</span></div>
+                <div class="h1 white_board white_figure"><span>&#9814;</span></div>
+            </div>
+            <div class="p1_info">
+                <div class="white_timer">
+                    <span class="minutes">00</span>
+                    <span>:</span>
+                    <span class="seconds">00</span>
+                </div>
+                <div class="white_eat_figures_area"></div>
+                <div class="p1name_area active">White Player</div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ------------SCRIPTS--------------------------------------------------------------------------- -->
+    <script src="js/classes.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/game.js"></script>
+
+</body>
+
+</html>
