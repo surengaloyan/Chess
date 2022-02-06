@@ -52,7 +52,7 @@ function showPoses(figure) {
 function moveFigures(figure) {
     let id = figure.parentElement.classList[0];
     let item = figuresObjArr.filter(el => { return el.fullId == id })[0];
-    // ------castling-----------------------------------------------------------------------------------------------
+    // ------check castling-----------------------------------------------------------------------------------------
     if (item.symbol == "♔" || item.symbol == "♚") {
         if (item.castling == false) {
             let checkRight = [
@@ -84,9 +84,7 @@ function moveFigures(figure) {
                     rook.addEventListener('click', castling);
                 }
             }
-
             castlingPoses.forEach(cl => document.querySelector('.' + cl).classList.add(showCastlingClass));
-
             function castling(e) {
                 classArr.forEach(cl => {
                     let elem = document.querySelector('.' + cl + ' span');
@@ -130,7 +128,7 @@ function moveFigures(figure) {
                         rook.addEventListener('click', () => { showPoses(rook) });
                     }
                 }
-
+                // ------castling----------------------------------------------------------------------------
                 function move() {
                     if (!mute) {
                         if (item.color == "black_figure")
@@ -170,6 +168,7 @@ function moveFigures(figure) {
                     castlingPoses.forEach(cl => document.querySelector('.' + cl + ' span').removeEventListener('click', castling));
                     castlingPoses.forEach(cl => document.querySelector('.' + cl).classList.remove(showCastlingClass));
                     castlingPoses = [];
+                    isCheck();
                     savePose(rookObj, 'castling');
                     turn == "white_figure" ? turn = "black_figure" : turn = "white_figure";
                     changeTimer(turn);
@@ -179,10 +178,9 @@ function moveFigures(figure) {
             castlingPoses.forEach(el => document.querySelector('.' + cl + ' span').removeEventListener('click', castling));
         }
     }
-    // ------move ---------------------------------------------------------------------------------------------------
+    // ------add move event--------------------------------------------------------------------------------------
     classArr.forEach(cls => {
-
-        function dragORclick(e) {
+        function clickToShow(e) {
             showPoses(e.target);
             document.removeEventListener('click', playClick);
         }
@@ -191,7 +189,6 @@ function moveFigures(figure) {
             moveButNotShow(target, figure, item);
             if (bKingObj.checkCheck() == false) {
                 reMoveButNotShow(target, figure, item);
-                isCheck();
                 target.addEventListener('click', move);
             } else
                 reMoveButNotShow(target, figure, item);
@@ -199,12 +196,11 @@ function moveFigures(figure) {
             moveButNotShow(target, figure, item);
             if (wKingObj.checkCheck() == false) {
                 reMoveButNotShow(target, figure, item);
-                isCheck();
                 target.addEventListener('click', move);
             } else
                 reMoveButNotShow(target, figure, item);
         }
-
+        // ------move ---------------------------------------------------------------------------------------------------
         function move() {
             if (!mute) {
                 if (item.color == "black_figure")
@@ -223,14 +219,14 @@ function moveFigures(figure) {
             figure.parentElement.classList.remove(item.color);
             target.parentElement.classList.add(item.color);
             item.move(target.parentElement.classList[0], true);
-            target.addEventListener('click', dragORclick);
+            target.addEventListener('click', clickToShow);
 
             target.removeEventListener('click', move);
             eatClassArr.forEach(cls => {
                 document.querySelector('.' + cls + ' span').removeEventListener('click', eat);
             });
             castlingPoses.forEach(cl => document.querySelector('.' + cl).replaceChild(document.querySelector('.' + cl + ' span').cloneNode(true), document.querySelector('.' + cl + ' span')));
-            castlingPoses.forEach(cl => document.querySelector('.' + cl + ' span').addEventListener('click', dragORclick));
+            castlingPoses.forEach(cl => document.querySelector('.' + cl + ' span').addEventListener('click', clickToShow));
             castlingPoses = [];
             isCheck();
             savePose(item);
@@ -238,7 +234,7 @@ function moveFigures(figure) {
             changeTimer(turn);
         }
     });
-    // ------eat-----------------------------------------------------------------------------------------------------
+    // ------ add eat event-----------------------------------------------------------------------------------
     eatClassArr.forEach(cls => {
         let target = document.querySelector('.' + cls + ' span');
         let obj = figuresObjArr.filter(el => { return el.fullId == target.parentElement.classList[0] })[0];
@@ -262,21 +258,7 @@ function moveFigures(figure) {
         }
     });
 }
-
-function isCheck() {
-    wKing = document.querySelector('.' + wKingObj.fullId + ' span');
-    bKing = document.querySelector('.' + bKingObj.fullId + ' span');
-    if (bKingObj.checkCheck()) {
-        bKing.parentElement.classList.add('check');
-    } else
-        bKing.parentElement.classList.remove('check');
-
-    if (wKingObj.checkCheck()) {
-        wKing.parentElement.classList.add('check');
-    } else
-        wKing.parentElement.classList.remove('check');
-}
-
+// ----eat-------------------------------------------------------------------------------------------------
 function eat(e) {
     let targetItem = e.target;
     if (!mute) {
@@ -325,10 +307,9 @@ function eat(e) {
     changeTimer(turn);
 }
 
-
+// ----hidden moving for check--------------------------------------------------------------------------------------
 //----eat-----------
 function eatButNotShow(target, obj, sorceObj) {
-
     target.parentElement.classList.remove(obj.color);
     eater.innerHTML = "";
     eater.parentElement.classList.remove(sorceObj.color);
@@ -338,7 +319,6 @@ function eatButNotShow(target, obj, sorceObj) {
     figuresObjArr.splice(figuresObjArr.indexOf(obj), 1);
 }
 function reEatButNotShow(target, obj, sorceObj) {
-
     target.parentElement.classList.add(obj.color);
     eater.innerHTML = sorceObj.symbol;
     eater.parentElement.classList.add(sorceObj.color);
@@ -346,10 +326,10 @@ function reEatButNotShow(target, obj, sorceObj) {
     sorceObj.move(eater.parentElement.classList[0], false);
     target.innerHTML = obj.symbol;
     figuresObjArr.push(obj);
+    isCheck();
 }
 //----move----------
 function moveButNotShow(target, figure, item) {
-
     figure.innerHTML = "";
     target.innerHTML = item.symbol;
     figure.parentElement.classList.remove(item.color);
@@ -357,12 +337,12 @@ function moveButNotShow(target, figure, item) {
     item.move(target.parentElement.classList[0], false);
 }
 function reMoveButNotShow(target, figure, item) {
-
     figure.innerHTML = item.symbol;
     target.innerHTML = "";
     figure.parentElement.classList.add(item.color);
     target.parentElement.classList.remove(item.color);
     item.move(figure.parentElement.classList[0], false);
+    isCheck();
 }
 
 //----castling----------
@@ -379,7 +359,6 @@ function castleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure
     figure.innerHTML = "";
     kingTarget.innerHTML = item.symbol;
 }
-
 function reCastleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure) {
     let rookObj = figuresObjArr.filter(el => { return el.fullId == rookTarget.parentElement.classList[0] })[0];
     rookObj.move(rook.parentElement.classList[0], false);
@@ -394,8 +373,12 @@ function reCastleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figu
     figure.innerHTML = item.symbol;
 }
 
-// ----promotion of pown----------------------------------------------------------------------------------------------------------
+// ----promotion of pown--------------------------------------------------------------------------------------------
 function showPromotionBar(fullId) {
+    clearInterval(blackTimer);
+    clearInterval(whiteTimer);
+    turn == "white_figure" ? turn = "black_figure" : turn = "white_figure";
+    changeTimer(turn);
     promotionBar.classList.add('active');
     const figure = document.querySelector('.' + fullId + ' span');
     const figureObj = figuresObjArr.filter(obj => { return obj.fullId == fullId })[0];
@@ -414,12 +397,12 @@ function showPromotionBar(fullId) {
             addFigure(fullId[1], fullId[0], figure.parentElement.classList[2], sym);
             let newFigObj = figuresObjArr.filter(obj => { return obj.fullId == fullId })[0];
 
-            console.log(fullId);
-            console.log(figuresObjArr);
-            console.log(newFigObj);
-
             figure.innerHTML = newFigObj.symbol;
             promotionBar.classList.remove('active');
+            clearInterval(blackTimer);
+            clearInterval(whiteTimer);
+            turn == "white_figure" ? turn = "black_figure" : turn = "white_figure";
+            changeTimer(turn);
             isCheck();
         });
         promotionFiguresBox.appendChild(item);
@@ -427,3 +410,17 @@ function showPromotionBar(fullId) {
 }
 
 
+// ----check & show king check--------------------------------------------------------------------------------------
+function isCheck() {
+    wKing = document.querySelector('.' + wKingObj.fullId + ' span');
+    bKing = document.querySelector('.' + bKingObj.fullId + ' span');
+    if (bKingObj.checkCheck()) {
+        bKing.parentElement.classList.add('check');
+    } else
+        bKing.parentElement.classList.remove('check');
+
+    if (wKingObj.checkCheck()) {
+        wKing.parentElement.classList.add('check');
+    } else
+        wKing.parentElement.classList.remove('check');
+}
