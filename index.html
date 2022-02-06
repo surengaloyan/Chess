@@ -14,11 +14,6 @@
 </head>
 
 <body>
-    <!-- <h1>Black figures</h1>
-    <div>&#9818; &#9819; &#9820; &#9821; &#9822; &#9823;</div>
-    <h1>White figures</h1>
-    <div>&#9812;  &#9813; &#9814; &#9815; &#9816; &#9817;</div> -->
-
     <!-- Audio files -->
     <audio src="files/click_sound.mp3" class="click_sound"></audio>
     <audio src="files/chess_music.mp3" class="chess_music" loop></audio>
@@ -47,9 +42,9 @@
             <p>end of time</p>
             <p>check winner:</p>
             <div class="win_options">
-                <button class="fas fa-chess-king"></button>
-                <button class="fas fa-handshake"></button>
-                <button class="fas fa-chess-king"></button>
+                <button title="Winner is white player" class="fas fa-chess-king white_winner"></button>
+                <button title="Nobody's" class="fas fa-handshake nobodys"></button>
+                <button title="Winner is black player" class="fas fa-chess-king black_winner"></button>
             </div>
         </div>
     </div>
@@ -63,7 +58,6 @@
             <i class="fas fa-redo-alt restart"></i>
         </div>
     </div>
-    </div>
 
     <!-- ------------navbar & win buttons------------------------------------------------------------------------ -->
     <div class="main_btns">
@@ -71,9 +65,9 @@
         <div class="win_btns">
             <button title="check winner" class="fas fa-crown win" id="win_select"></button>
             <div class="win_options">
-                <button title="Winner is white player" class="fas fa-chess-king" id="white_winner"></button>
-                <button title="Winner is black player" class="fas fa-chess-king" id="black_winner"></button>
-                <button title="Nobody's" class="fas fa-handshake" id="nobodys"></button>
+                <button title="Winner is white player" class="fas fa-chess-king white_winner"></button>
+                <button title="Winner is black player" class="fas fa-chess-king black_winner"></button>
+                <button title="Nobody's" class="fas fa-handshake nobodys"></button>
             </div>
         </div>
     </div>
@@ -96,16 +90,11 @@
             <hr>
             <li><button class="names">names<i class="fas fa-caret-right"></i></button></li>
             <li><button class="history">history<i class="fas fa-caret-right"></i></button></li>
-            <li><button class="poses active">poses<div class="check_box">
+            <li><button class="poses active">poses
+                    <div class="check_box">
                         <div class="check"></div>
-                    </div></button></li>
-            <li class="select">
-                <button class="languages">languages<i class="fas fa-sort-down"></i></button>
-                <div class="lang_options">
-                    <div class="hy">hy</div>
-                    <div class="ru">ru</div>
-                    <div class="eng active">eng</div>
-                </div>
+                    </div>
+                </button>
             </li>
         </ul>
     </nav>
@@ -159,7 +148,7 @@
     </div>
     <!-- ------------HISTORY single box-------------------------------------------------------------------------- -->
     <div class="history_single_box">
-        
+
     </div>
 
     <!-- ------------POWN PROMOTION box-------------------------------------------------------------------------- -->
