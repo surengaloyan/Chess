@@ -399,60 +399,6 @@ nav .menu .poses.active .check_box
 }
 
 
-/* -----languages------------------------------------------------------------------------------------------------- */
-nav .menu .select
-{
-    position: relative;
-}
-
-nav .menu .select .languages.active .fa-sort-down
-{
-    transform: rotate(-180deg);
-}
-
-nav .menu .select .lang_options
-{
-    position: absolute;
-    top: 55px;
-    left: 0;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.05);
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: .5rem;
-    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-}
-
-nav .menu .select .lang_options.active
-{
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-}
-
-nav .menu .select .lang_options div
-{
-    width: 30%;
-    height: 40px;
-    color: #fff;
-    position: relative;
-    z-index: 30;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    font-size: 1.3rem;
-}
-
-nav .menu .select .lang_options div:hover
-{
-    background: rgba(255, 255, 255, 0.05);
-}
-
-nav .menu .select .lang_options div.active
-{
-    background: rgba(255, 255, 255, 0.1);
-}
 
 /* -----win buttons----------------------------------------------------------------------------------------------- */
 .main_btns .win_btns
@@ -515,18 +461,18 @@ nav .menu .select .lang_options div.active
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
-
-
-.main_btns .win_btns .win_options #black_winner
+.main_btns .win_btns .win_options .black_winner,
+.end_of_time .inner .win_options .black_winner
 {
     color: #000;
 }
-.main_btns .win_btns .win_options #white_winner,
-.main_btns .win_btns .win_options #black_winner
+
+.main_btns .win_btns .win_options .white_winner,
+.main_btns .win_btns .win_options .black_winner
 {
     padding: .5rem .7rem;
 }
-.main_btns .win_btns .win_options #nobodys
+.main_btns .win_btns .win_options .nobodys
 {
     padding: .7rem .5rem;
 }
