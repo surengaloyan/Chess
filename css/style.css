@@ -123,7 +123,7 @@ hr
 
 .start_page.hide
 {
-    transform: translateY(-100%);
+    transform: translateY(-120%);
 }
 
 .start_page img
@@ -913,7 +913,8 @@ nav .menu .poses.active .check_box
     padding-top: .2rem;
 }
 
-.gaming_area .game .p1_info .p1name_area
+.gaming_area .game .p1_info .p1name_area,
+.gaming_area .game .p2_info .p2name_area
 {
     position: relative;
 }
@@ -923,20 +924,22 @@ nav .menu .poses.active .check_box
 {
     content: '';
     position: absolute;
-    left: -21px;
-    top: -1px;
     width: 20px;
     height: 20px;
     border-radius: 50%;
     background:var(--main-col);
 }
 
+.gaming_area .game .p1_info .p1name_area.active::before
+{
+    left: -21px;
+    top: -1px;
+}
 .gaming_area .game .p2_info .p2name_area.active::before
 {
-    left: 88px;
-    top: -2px;
+    right: -21px;
+    bottom: 2px;
 }
-
 .gaming_area .game .white_eat_figures_area,
 .gaming_area .game .black_eat_figures_area
 {
