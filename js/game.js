@@ -40,8 +40,8 @@ function showPoses(figure) {
             castlingPoses.forEach(cl => document.querySelector('.' + cl).classList.remove(showCastlingClass));
             classArr = item.getPoses();
             eatClassArr = item.checkEat();
-            classArr.forEach(cl => document.querySelector('.' + cl).classList.add(showClass));
-            eatClassArr.forEach(cl => document.querySelector('.' + cl).classList.add(showEatClass));
+            // classArr.forEach(cl => document.querySelector('.' + cl).classList.add(showClass));
+            // eatClassArr.forEach(cl => document.querySelector('.' + cl).classList.add(showEatClass));
             moveFigures(figure);
         }
     }
@@ -189,6 +189,7 @@ function moveFigures(figure) {
             moveButNotShow(target, figure, item);
             if (bKingObj.checkCheck() == false) {
                 reMoveButNotShow(target, figure, item);
+                document.querySelector('.' + cls).classList.add(showClass);
                 target.addEventListener('click', move);
             } else
                 reMoveButNotShow(target, figure, item);
@@ -196,6 +197,7 @@ function moveFigures(figure) {
             moveButNotShow(target, figure, item);
             if (wKingObj.checkCheck() == false) {
                 reMoveButNotShow(target, figure, item);
+                document.querySelector('.' + cls).classList.add(showClass);
                 target.addEventListener('click', move);
             } else
                 reMoveButNotShow(target, figure, item);
@@ -243,6 +245,7 @@ function moveFigures(figure) {
             eatButNotShow(target, obj, sorceObj);
             if (bKingObj.checkCheck() == false) {
                 reEatButNotShow(target, obj, sorceObj);
+                document.querySelector('.' + cls).classList.add(showEatClass);
                 target.addEventListener('click', eat);
             } else {
                 reEatButNotShow(target, obj, sorceObj);
@@ -251,6 +254,7 @@ function moveFigures(figure) {
             eatButNotShow(target, obj, sorceObj);
             if (wKingObj.checkCheck() == false) {
                 reEatButNotShow(target, obj, sorceObj);
+                document.querySelector('.' + cls).classList.add(showEatClass);
                 target.addEventListener('click', eat);
             } else {
                 reEatButNotShow(target, obj, sorceObj);
