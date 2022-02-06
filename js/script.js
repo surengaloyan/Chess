@@ -9,11 +9,13 @@ const wEatFiguresAarea = document.querySelector('.white_eat_figures_area');
 const bEatFiguresAarea = document.querySelector('.black_eat_figures_area');
 const promotionBar = document.querySelector('.pown_promotion_box .inner');
 const promotionFiguresBox = document.querySelector('.promotion_figures');
+const winnerNameArea = document.querySelector('.winner_name');
 const startPage = document.querySelector('.start_page');
 const endTime = document.querySelector('.end_of_time');
 const endGame = document.querySelector('.end_of_game');
 const desk = document.querySelector('.desk');
 const newDesk = desk.innerHTML;
+
 //-----------------
 let showClass = "active_pose";
 let showEatClass = "eat_pose";
@@ -118,12 +120,8 @@ function changeFigures(fnt) {
     localStorage.setItem("figuresFont", font);
 }
 // ----check device-------------------------------------------------------------------------------------------------
-
-/* Storing user's device details in a variable*/
 let details = navigator.userAgent;
-/* Creating a regular expression containing some mobile devices keywords to search it in details string*/
 let regexp = /android|iphone|kindle|ipad/i;
-/* Using test() method to search regexp in detailsit returns boolean value*/
 let isMobileDevice = regexp.test(details);
 
 // ----DOMContentLoaded----------------------------------------------------------------------------------------------
@@ -146,11 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isMobileDevice)
         nameBox.style.overflowY = "scroll";
 
-
-    // ---get figures objects---------------
     getFiguresObjects()
-
-    //---get matches history-----------------
     getMatchesHistory();
 
 });
@@ -289,7 +283,7 @@ function showHideMenu() {
         nameBox.classList.remove('active');
         historyBtn.classList.remove('active');
         historyBox.classList.remove('active');
-        changeTimer(turn)
+        changeTimer(turn);
     } else {
         clearInterval(blackTimer);
         clearInterval(whiteTimer);
@@ -297,35 +291,7 @@ function showHideMenu() {
     menuBtn.classList.toggle('fa-times');
     navBar.classList.toggle('active');
     gamingArea.classList.toggle('active');
-
 }
-// ==== hi ====
-restartBtns.forEach(el => el.addEventListener('click', restart));
-
-function restart() {
-    menuBtn.classList.remove('fa-times');
-    navBar.classList.remove('active');
-    gamingArea.classList.remove('active');
-    endGame.classList.remove('active');
-    wEatFiguresAarea.innerHTML = "";
-    bEatFiguresAarea.innerHTML = "";
-    p1NameArea.classList.add('active');
-    p2NameArea.classList.remove('active');
-    desk.innerHTML = newDesk;
-    figuresArr = [];
-    figuresObjArr = [];
-    classArr = [];
-    eatClassArr = [];
-    castlingPoses = [];
-    gamePosesHistory = [];
-    turn = "white_figure";
-    blackSeconds = 0;
-    whiteSeconds = 0;
-    getFiguresObjects();
-    startPage.classList.remove('hide');
-}
-
-
 
 // ----music---------------------------------------------------------------------------------------------------------
 const musicBtn = document.querySelector('.music');
@@ -466,31 +432,6 @@ backFromNames.addEventListener('click', () => {
     namesBtn.classList.remove('active');
 })
 
-// ------history------------------------------------------------------------------------------------------------------
-const historyBtn = document.querySelector('.history');
-const historyBox = document.querySelector('.history_box');
-
-
-
-historyBtn.addEventListener('click', () => {
-    historyBtn.classList.toggle('active');
-    historyBox.classList.toggle('active');
-
-    figuresBtn.classList.remove('active');
-    figuresBox.classList.remove('active');
-    themesBtn.classList.remove('active');
-    themesBox.classList.remove('active');
-    namesBtn.classList.remove('active');
-    nameBox.classList.remove('active');
-})
-
-backFromHistory.addEventListener('click', () => {
-    historyBtn.classList.remove('active');
-    historyBox.classList.remove('active');
-})
-
-
-
 // ------poses------------------------------------------------------------------------------------------------------
 const posesBtn = document.querySelector('.poses');
 posesBtn.addEventListener('click', () => {
@@ -509,23 +450,6 @@ posesBtn.addEventListener('click', () => {
     }
 })
 
-// ------languages---------------------------------------------------------------------------------------------------
-const langOption = document.querySelector('.lang_options');
-const languagesBtn = document.querySelector('.languages');
-
-languagesBtn.addEventListener('click', () => {
-    langOption.classList.toggle('active');
-    languagesBtn.classList.toggle('active');
-})
-
-const langBtns = document.querySelectorAll('.lang_options div');
-langBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        langBtns.forEach(button => { button.classList.remove('active') });
-        btn.classList.add('active');
-    })
-})
-
 // -------win btns----------------------------------------------------------------------------------------------
 const winSelect = document.querySelector('#win_select');
 const winBtns = document.querySelector('.win_btns');
@@ -534,24 +458,59 @@ winSelect.addEventListener('click', () => {
     winBtns.classList.toggle('active');
 })
 
-const whiteWinner = document.querySelector('#white_winner');
-const blackWinner = document.querySelector('#black_winner');
-const nobodys = document.querySelector('#nobodys');
+const whiteWinnerBtns = document.querySelectorAll('.white_winner');
+const blackWinnerBtns = document.querySelectorAll('.black_winner');
+const nobodysBtns = document.querySelectorAll('.nobodys');
 
-whiteWinner.addEventListener('click', () => {
+whiteWinnerBtns.forEach(el => el.addEventListener('click', () => {
     winBtns.classList.remove('active');
     saveHistory('white');
     showWinner('white');
-});
-blackWinner.addEventListener('click', () => {
+}));
+blackWinnerBtns.forEach(el => el.addEventListener('click', () => {
     winBtns.classList.remove('active');
     saveHistory('black');
     showWinner('black');
-});
-nobodys.addEventListener('click', () => {
+}));
+nobodysBtns.forEach(el => el.addEventListener('click', () => {
     winBtns.classList.remove('active');
     saveHistory('nobodys');
     showWinner('nobodys');
+}))
+
+function showWinner(winner) {
+    endGame.classList.add('active');
+    clearInterval(blackTimer);
+    clearInterval(whiteTimer);
+    if (winner == "white") {
+        winnerNameArea.innerHTML = p1NameArea.innerHTML;
+    } else if (winner == "black") {
+        winnerNameArea.innerHTML = p2NameArea.innerHTML;
+    } else {
+        winnerNameArea.innerHTML = "nobody\'s";
+    }
+}
+
+
+// ------history----------------------------------------------------------------------------------------------------
+const historyBtn = document.querySelector('.history');
+const historyBox = document.querySelector('.history_box');
+
+historyBtn.addEventListener('click', () => {
+    historyBtn.classList.toggle('active');
+    historyBox.classList.toggle('active');
+
+    figuresBtn.classList.remove('active');
+    figuresBox.classList.remove('active');
+    themesBtn.classList.remove('active');
+    themesBox.classList.remove('active');
+    namesBtn.classList.remove('active');
+    nameBox.classList.remove('active');
+})
+
+backFromHistory.addEventListener('click', () => {
+    historyBtn.classList.remove('active');
+    historyBox.classList.remove('active');
 })
 
 function savePose(figure, message) {
@@ -599,20 +558,6 @@ function saveHistory(winner) {
     getMatchesHistory();
 }
 
-const winnerNameArea = document.querySelector('.winner_name');
-
-function showWinner(winner) {
-    endGame.classList.add('active');
-    clearInterval(blackTimer);
-    clearInterval(whiteTimer);
-    if (winner == "white") {
-        winnerNameArea.innerHTML = p1NameArea.innerHTML;
-    } else if (winner == "black") {
-        winnerNameArea.innerHTML = p2NameArea.innerHTML;
-    } else {
-        winnerNameArea.innerHTML = "nobody\'s";
-    }
-}
 
 function getMatchesHistory() {
     let matchesHistory;
@@ -689,10 +634,28 @@ function removeFromLocalStorege(e) {
     getMatchesHistory();
 }
 
-// gamePosesHistory
-// nobody's
-//♜h4->♖h6
-//check +
-//mat   #
-//short 0-0
-//long  0-0-0
+// ------restart----------------------------------------------------------------------------------------------------
+restartBtns.forEach(el => el.addEventListener('click', restart));
+function restart() {
+    menuBtn.classList.remove('fa-times');
+    navBar.classList.remove('active');
+    gamingArea.classList.remove('active');
+    endGame.classList.remove('active');
+    endTime.classList.remove('active');
+    wEatFiguresAarea.innerHTML = "";
+    bEatFiguresAarea.innerHTML = "";
+    p1NameArea.classList.add('active');
+    p2NameArea.classList.remove('active');
+    desk.innerHTML = newDesk;
+    figuresArr = [];
+    figuresObjArr = [];
+    classArr = [];
+    eatClassArr = [];
+    castlingPoses = [];
+    gamePosesHistory = [];
+    turn = "white_figure";
+    blackSeconds = 0;
+    whiteSeconds = 0;
+    getFiguresObjects();
+    startPage.classList.remove('hide');
+}
