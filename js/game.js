@@ -54,7 +54,7 @@ function moveFigures(figure) {
     let item = figuresObjArr.filter(el => { return el.fullId == id })[0];
     // ------check castling-----------------------------------------------------------------------------------------
     if (item.symbol == "♔" || item.symbol == "♚") {
-        if (item.castling == false) {
+        if (item.castling == false && item.checkCheck() == false) {
             let checkRight = [
                 document.querySelector('.' + letters[letters.indexOf(id[0]) + 1] + id[1] + ' span'),
                 document.querySelector('.' + letters[letters.indexOf(id[0]) + 2] + id[1] + ' span')
@@ -111,7 +111,7 @@ function moveFigures(figure) {
                 //---Check Check---------
                 if (item.color == "black_figure") {
                     castleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure);
-                    if (bKingObj.checkCheck() == false) {
+                    if (bKingObj.checkCheck() == false && checkRookTarget(rookTarget, item.color)) {
                         reCastleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure);
                         move();
                     } else {
@@ -120,7 +120,7 @@ function moveFigures(figure) {
                     }
                 } else if (item.color == "white_figure") {
                     castleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure);
-                    if (wKingObj.checkCheck() == false) {
+                    if (wKingObj.checkCheck() == false && checkRookTarget(rookTarget, item.color)) {
                         reCastleButNotShow(rook, rookParent, rookTarget, kingTarget, item, figure);
                         move();
                     } else {
@@ -423,4 +423,17 @@ function isCheck() {
         wKing.parentElement.classList.add('check');
     } else
         wKing.parentElement.classList.remove('check');
+}
+
+function checkRookTarget(rookTarget, clr) {
+    const id = rookTarget.parentElement.classList[0];
+    let dangerPoses = [];
+    for (const obj of figuresObjArr) {
+        if (obj.color != clr && obj.symbol != "♟" && obj.symbol != "♙") {
+            dangerPoses.push(...obj.getPoses());
+            dangerPoses.push(...obj.checkEat());
+        }
+    }
+    const thereIs = dangerPoses.filter(el => {return el == id});
+    return thereIs.length == 0 ? true : false;
 }
