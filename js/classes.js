@@ -366,8 +366,8 @@ class King {
         this.poses = [];
         this.eatPoses = [];
         let clr, sym;
-        this.color == "black_figure" ? clr = "white_figure" : clr = "black_figure"//♔//♚
-        this.symbol == "♚" ? sym = "♔" : sym = "♚"//♔//♚
+        this.color == "black_figure" ? clr = "white_figure" : clr = "black_figure";
+        this.symbol == "♚" ? sym = "♔" : sym = "♚";
 
         let poses = [
             this.letterId + (this.numberId + 1),
@@ -381,7 +381,7 @@ class King {
         ];
         let dangerPoses = [];
         for (const obj of figuresObjArr) {
-            if (obj.color == clr && obj.symbol != "♚" && obj.symbol != "♔") {
+            if (obj.color == clr && obj.symbol != "♚" && obj.symbol != "♔" && obj.symbol != "♟" && obj.symbol != "♙") {
                 dangerPoses.push(...obj.getPoses());
             }
         }
@@ -454,8 +454,8 @@ class King {
 }
 
 
-class Match{
-    constructor(id, player1, player2, date, winner, poses){
+class Match {
+    constructor(id, player1, player2, date, winner, poses) {
         this.id = id;
         this.player1 = player1;
         this.player2 = player2;
